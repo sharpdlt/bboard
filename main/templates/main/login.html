@@ -13,6 +13,7 @@
     {% csrf_token %}
     {% bootstrap_form form layout='horizontal' %}
     <input type="hidden" name="next" value="{{ next }}">
+    <a href="{% url 'main:password_reset' %}">Сбросить пароль</a>
     {% bootstrap_button 'Войти' button_type='submit' %}
 </form>
 {% endif %}
