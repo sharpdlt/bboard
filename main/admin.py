@@ -4,6 +4,10 @@ import datetime
 from .models import AdvUser
 from .utilities import send_activation_notification
 
+from .models import SuperRubric, SubRubric
+
+from .forms import SubRubricForm
+
 
 def send_activation_notifications(modeladmin, request, queryset):
     for rec in queryset:
@@ -48,10 +52,25 @@ class AdvUserAdmin(admin.ModelAdmin):
         ('send_messages', 'is_active', 'is_activated'),
         ('is_staff', 'is_superuser'),
         'groups', 'user_permissions',
-        ('last_login', 'date_joined'),
+        ('last_login', 'date_joined')
     )
     readonly_fields = ('last_login', 'date_joined')
-    actions = ('send_activation_notifications',)
+    actions = [send_activation_notifications, ]
+
+
+class SubRubricIniline(admin.TabularInline):
+    model = SubRubric
+
+
+class SubRubricAdmin(admin.ModelAdmin):
+    form = SubRubricForm
+
+
+class SuperRubricAdmin(admin.ModelAdmin):
+    exclude = ('super_rubric',)
+    inlines = (SubRubricIniline, )
 
 
 admin.site.register(AdvUser, AdvUserAdmin)
+admin.site.register(SuperRubric, SuperRubricAdmin)
+admin.site.register(SubRubric, SubRubricAdmin)

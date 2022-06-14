@@ -50,37 +50,22 @@
     <div class="nav">
         <ul class="nav flex-column border">
             <li class="nav-item">
-                <a class="nav-link active"   aria-current="page" href="{% url 'main:index' %}">Главная</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'main:index' %}">Главная</a>
             </li>
+            {% for rubric in rubrics %}
+            {% ifchanged rubric.super_rubric.pk %}
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     <span class="nav-link root font-weight-bold">
-                        Недвижимость
+                        {{ rubric.super_rubric.name }}
                     </span>
                 </a>
             </li>
+            {% endifchanged %}
             <li class="nav-item">
-                <a class="nav-link" href="#">Жилье</a>
+                <a class="nav-link" href="{% url 'main:by_rubric' pk=rubric.pk %}">{{ rubric.name }}</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Склады</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Гаражи</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <span class="nav-link root font-weight-bold">
-                        Транспорт
-                    </span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Легковой</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Грузовой</a>
-            </li>
+            {% endfor %}
             <li class="nav-item border">
                 <a class="nav-link" href="{% url 'main:other' page='about' %}">
                     <span class="nav-link root font-weight-bold">
