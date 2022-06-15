@@ -6,7 +6,7 @@ from .utilities import send_activation_notification
 
 from .models import SuperRubric, SubRubric
 from .models import Bb, AdditionalImage
-
+from .models import Comment
 from .forms import SubRubricForm
 
 
@@ -83,6 +83,12 @@ class BbAdmin(admin.ModelAdmin):
     inlines = (AdditionalImageInline,)
 
 
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ('bb', 'content', 'author', 'created_at')
+    fields = ('content', 'is_active')
+
+
+admin.site.register(Comment, CommentAdmin)
 admin.site.register(AdvUser, AdvUserAdmin)
 admin.site.register(SuperRubric, SuperRubricAdmin)
 admin.site.register(SubRubric, SubRubricAdmin)
